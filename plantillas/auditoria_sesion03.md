@@ -3,7 +3,7 @@ Bitácora de Requerimientos y Auditoría IA — Sesión 03
 Materia: Lenguajes y Autómatas II (SCD-1016)
 Tema: Google Colab, Mágicos y Flujo de Entrega
 Docente Titular: MCC. Iván Márquez Larios (ijmarquezl)
-Estudiante: JOSE MANUEL SUAREZ HUEX 
+Estudiante: Jose Manuel Suarez Huex 
 Matrícula: 24531320
 Track: C (el harness evalúa C; la versión en Rust es opcional y no se califica con este harness)
 
@@ -151,6 +151,8 @@ TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion03.md
  La complejidad teórica coincide con la implementada.
 Reporte Crítico
 
+¿Qué caso borde o problema omitió la IA y cómo lo solucionaste?
+
 Comparación artesano vs IA: mi versión a mano sacó 1/6 y la de la IA 6/6. Compiló a la primera con -Wall -Wextra -Werror sin ningún warning y respetó las firmas del .h tal cual, no tuve que corregirle nada.
 
 Lo que hizo bien:
@@ -160,13 +162,17 @@ El archivo se cierra en todos los caminos (incluso cuando falla fputs), y como n
 El caso borde de contar_lineas sí lo cubrió: guarda el último carácter leído y si no fue \n suma una línea más. Así "a\nb" da 2. Un archivo vacío da 0, que también está bien.
 En ejecutar usa WIFEXITED antes de WEXITSTATUS, que es lo correcto, porque si el proceso murió por una señal WEXITSTATUS no significa nada.
 
-Caso borde que omitió la IA: en escribir_texto nunca revisa lo que regresa fclose(). Como fputs escribe en un buffer, el texto realmente se manda al disco hasta que se cierra el archivo, entonces si el disco está lleno o hay un error de escritura, ese error aparece en el fclose y la función igual regresaría 0 como si todo hubiera salido bien. Lo detecté leyendo el código línea por línea, porque el harness no lo prueba (sus casos siempre escriben en un archivo normal). Para el contexto de la sesión eso es justo lo que no queremos: que un paso del pipeline diga "todo bien" cuando en realidad falló. La corrección sería:
+Caso borde que omitió la IA: en escribir_texto nunca revisa lo que regresa fclose(). Como fputs escribe en un buffer, el texto realmente se manda al disco hasta que se cierra el archivo, entonces si el disco está lleno o hay un error de escritura, ese error aparece en el fclose y la función igual regresaría 0 como si todo hubiera salido bien. Lo detecté leyendo el código línea por línea, porque el harness no lo prueba (sus casos siempre escriben en un archivo normal). Para el contexto de la sesión eso es justo lo que no queremos: que un paso del pipeline diga "todo bien" cuando en realidad falló.
+
+Cómo lo solucioné: cambié el final de escribir_texto para que también revise el fclose:
 
 c
 if (fclose(archivo) != 0) {
     return -1;
 }
 return 0;
+
+Volví a correr el harness con el cambio y sigue dando 6/6, o sea que no rompe nada y ahora sí reporta el error si la escritura falla al cerrar. Para comprobarlo probé escribir_texto("/dev/full", "hola") (/dev/full es un archivo de Linux que siempre dice "disco lleno"): con el código original de la IA regresa 0, y con la corrección regresa -1.
 
 Otros detalles menores que vi:
 
@@ -184,3 +190,5 @@ ejecutar	O(1) por parte de la función, más lo que tarde el comando	O(1)
 Coincide con lo implementado: solo hay un ciclo en contar_lineas que recorre el archivo una vez, y no se reserva memoria dinámica en ninguna función.
 
 Conclusión: la IA sacó el código correcto y más rápido que yo, pero el harness solo garantiza que pasan los 6 casos que prueba, no que el código esté completo. Lo del fclose solo se ve si lees el código y entiendes cómo funciona el buffer de stdio.
+
+Firma digital: josessuarez
