@@ -107,9 +107,31 @@ void invertir(char *s) {
 
 **Pruebas ejecutadas:** valores `NULL`, buffers vacíos y longitudes pares e impares.
 
+### Salida del harness
+```text
+=== AUDITORIA SESION 01 - Inversion de buffer in-place ===
+Caso                               esperado:              obtenido:              resultado
+[ 1] invertir("HOLA")                   esperado: ALOH         obtenido: ALOH         OK
+[ 2] invertir("abc")                    esperado: cba          obtenido: cba          OK
+[ 3] invertir("")                       esperado:              obtenido:              OK
+[ 4] invertir("AB")                     esperado: BA           obtenido: BA           OK
+[ 5] invertir("a")                      esperado: a            obtenido: a            OK
+[ 6] invertir(NULL)                     esperado: sin crash    obtenido: sin crash    OK
+
+RESULTADO: 6/6 pruebas superadas
+TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion01.md
+```
+
 - [x] Caso base y límites superados sin crash.
 - [x] No existen accesos fuera de límites ni memory leaks.
 - [x] La complejidad teórica coincide con la implementada.
 
 **Resultado del harness:** las dos versiones (artesano e IA) dieron **6/6 pruebas superadas**.
 
+### Reporte Crítico
+**¿Qué caso borde o problema omitió la IA y cómo lo solucionaste?**
+
+> La IA me regresó solo la función, sin ningún `#include`. Como usa `NULL`, al compilar con `-Wall -Wextra -Werror` salió error de que `NULL` no estaba declarado, así que le agregué `#include <stddef.h>` y ya compiló. Fuera de eso, la lógica estaba bien: revisa `NULL` y la cadena vacía antes de empezar, así que no llega a hacer `fin + 1` sobre una cadena vacía, que sería leer fuera del buffer. A diferencia de mi versión, la de la IA no usa `strlen` ni índices `size_t`, sino dos punteros que se acercan, entonces no tiene el problema de `n - 1` con cadena vacía. Las dos versiones son O(n) en tiempo y O(1) en memoria, y las dos dieron 6/6.
+
+---
+**Firma digital:** josessuarez
