@@ -1,0 +1,1 @@
+(programa (declarar suma (num 0)) (declarar i (num 1)) (mientras (<= (var i) (num 5)) (bloque (asignar suma (+ (var suma) (var i))) (asignar i (+ (var i) (num 1))))) (imprimir (var suma)))

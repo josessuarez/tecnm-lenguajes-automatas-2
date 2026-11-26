@@ -1,0 +1,11 @@
+// shadowing: la x de adentro tapa a la de afuera
+int x = 1;
+{
+    int x = 10;
+    print(x);
+    {
+        x = x + 5;
+        print(x);
+    }
+}
+print(x);

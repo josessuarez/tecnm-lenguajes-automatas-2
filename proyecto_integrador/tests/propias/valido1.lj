@@ -1,0 +1,10 @@
+// suma de los primeros 5 enteros
+int suma = 0;
+int i = 1;
+
+while (i <= 5) {
+    suma = suma + i;
+    i = i + 1;
+}
+
+print(suma);   // imprime 15

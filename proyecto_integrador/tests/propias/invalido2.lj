@@ -1,0 +1,7 @@
+// errores semanticos: E01, E02 y E04 en una sola pasada
+int x = x + 1;
+int y;
+print(y);
+int a = 1;
+int a = 2;
+int b = a / 0;

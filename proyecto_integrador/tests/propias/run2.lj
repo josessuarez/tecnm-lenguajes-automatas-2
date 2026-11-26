@@ -1,0 +1,13 @@
+// if / else con comparaciones
+int a = 7;
+int b = 3;
+if (a > b) {
+    print(a - b);
+} else {
+    print(b - a);
+}
+if (a == b) {
+    print(1);
+} else {
+    print(0);
+}

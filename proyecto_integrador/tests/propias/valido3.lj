@@ -1,0 +1,13 @@
+// if/else, while y una variable declarada dentro de un bloque
+int x = 10;
+if (x > 3) {
+    print(x);
+} else {
+    print(0);
+}
+int i = 0;
+while (i < 3) {
+    int j = i * 2;
+    print(j);
+    i = i + 1;
+}

@@ -1,0 +1,1 @@
+(programa (declarar x (num 10)) (si (> (var x) (num 3)) (entonces (bloque (imprimir (var x)))) (si_no (bloque (imprimir (num 0))))) (declarar i (num 0)) (mientras (< (var i) (num 3)) (bloque (declarar j (* (var i) (num 2))) (imprimir (var j)) (asignar i (+ (var i) (num 1))))))

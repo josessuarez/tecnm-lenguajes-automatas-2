@@ -1,0 +1,2 @@
+tests/propias/invalido1.lj:2:11: error S01: carácter inválido '@'
+tests/propias/invalido1.lj:3:22: error S01: carácter inválido '#'

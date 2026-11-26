@@ -1,0 +1,6 @@
+// tabla del 3 con while
+int i = 1;
+while (i <= 5) {
+    print(3 * i);
+    i = i + 1;
+}

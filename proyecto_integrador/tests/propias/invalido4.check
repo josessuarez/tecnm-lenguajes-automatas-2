@@ -1,0 +1,1 @@
+tests/propias/invalido4.lj:4:7: error E01: variable leída antes de tener valor 'y'

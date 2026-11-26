@@ -1,0 +1,4 @@
+tests/propias/invalido2.lj:2:9: error E01: variable no declarada 'x'
+tests/propias/invalido2.lj:4:7: error E01: variable leída antes de tener valor 'y'
+tests/propias/invalido2.lj:6:1: error E02: redeclaración en el mismo ámbito de 'a'
+tests/propias/invalido2.lj:7:11: error E04: división entre cero constante
